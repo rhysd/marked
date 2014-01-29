@@ -60,7 +60,6 @@ $ cat hello.html
 </html>
 ```
 
-
 Marked offers [advanced configurations](https://github.com/markedjs/marked/blob/master/USING_ADVANCED.md) and [extensibility](https://github.com/markedjs/marked/blob/master/USING_PRO.md) as well.
 
 <h2 id="specifications">Supported Markdown specifications</h2>
@@ -96,4 +95,36 @@ For list of credited authors and contributors, please see our [authors page](htt
 Copyright (c) 2011-2018, Christopher Jeffrey. (MIT License)
 
 See [license](https://github.com/markedjs/marked/blob/master/LICENSE.md) for more details.
+
+---
+
+This is a fork version of [markedjs](https://github.com/markedjs/marked) to add support emoji.
+
+### emoji
+
+Type: `Boolean` / `String` / `Function`
+Default: `false`
+
+Enable replacement of colon-delimited Emoji emoticon codes like `:warning:` or `:+1:`. This option requires the `gfm` option to be true. :octocat: 
+
+* `String`: parsed as template for the replacement value, accepts the `{emoji}` variable.
+* `true`: use the default &lt;img&gt; with a local URL prefix.
+* `Function`: called with each emoji code, must return a replacement string like an &lt;img&gt; or &lt;span&gt; tag. Don't forget to use `escape(emoji)` or `encodeURIComponent(emoji)` where needed. 
+
+```js
+marked.setOptions({
+  emoji: function (emoji) {
+    return '<span data-emoji="' + emoji + '"></span>';
+  }
+});
+```
+
+The default template:
+
+````
+<img src="/graphics/emojis/warning.png" alt=":warning:" title=":warning:" 
+  class="emoji" align="absmiddle" height="20" width="20">`
+````
+
+:warning: The images for the emoji set used by GitHub can be found [in the repos](https://github.com/arvida/emoji-cheat-sheet.com/tree/master/public/graphics/emojis) of the [emoji-cheat-sheet](http://www.emoji-cheat-sheet.com/). :point_left::+1:
 
